@@ -22,7 +22,7 @@ abstract class Account(private val client: Client) : IAccount {
     }
 
     override fun transfer(value: Double): IAccount {
-        if(canTransfer()) this.lastTransactionalValue = value
+        if(isValueValid(value)) this.lastTransactionalValue = value
         return this
     }
 
@@ -42,5 +42,5 @@ abstract class Account(private val client: Client) : IAccount {
         return "\nHolder: ${client.name}\nAgency: $agency\nNumber: $number\nBalance: $balance\n"
     }
 
-    fun canTransfer() = balance > 0.0
+    private fun isValueValid(value: Double) = balance >= value
 }
